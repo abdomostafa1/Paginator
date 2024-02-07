@@ -1,7 +1,9 @@
 package com.paginator
 
+import android.util.Log
 import kotlinx.coroutines.delay
 
+private const val TAG = "PaginatorDataStore"
 class PaginatorDataStore {
 
     private var items = emptyList<Number>()
@@ -14,12 +16,13 @@ class PaginatorDataStore {
 
 
     suspend fun loadItems(page: Int, itemsNo: Int): List<Number> {
+        Log.e(TAG, "inside loadItems on datasource class ", )
         delay(2000)
         if (page * itemsNo > items.size)
             return emptyList()
 
-        val fromIndex = (page - 1) * itemsNo
-        val toIndex = fromIndex + itemsNo - 1
+        val fromIndex = page  * itemsNo
+        val toIndex = fromIndex + itemsNo
         val subItems = items.subList(fromIndex, toIndex)
         return subItems
     }

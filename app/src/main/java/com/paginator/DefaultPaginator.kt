@@ -13,11 +13,15 @@ class DefaultPaginator(
         if (isLoading)
             return
 
-        isLoading=true
-        val numbers=onRequest(currentKey)
-        onSuccess(numbers)
-        currentKey=getNextKey(currentKey)
-        isLoading=false
+        try {
+            isLoading = true
+            val numbers = onRequest(currentKey)
+            onSuccess(numbers)
+            currentKey = getNextKey(currentKey)
+        } catch (e: Exception) {
+            onError(e)
+        }
+        isLoading = false
     }
 
     override fun reset() {
